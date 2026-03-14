@@ -302,6 +302,27 @@
         .b { background: rgba(205, 127, 50, 0.1); color: #cd7f32; }
         .f { background: rgba(238, 45, 63, 0.08); color: rgba(238, 45, 63, 0.6); }
 
+        .hack-year {
+            font-family: var(--font-display);
+            font-size: 0.62rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 0.6rem;
+            padding-bottom: 0.15rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+        .hack-link {
+            color: var(--text);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            transition: border-color 0.2s;
+        }
+        .hack-link:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
         /* === RESPONSIVE === */
         @media (max-width: 900px) {
             html, body { overflow: auto; height: auto; }
@@ -361,11 +382,11 @@
                 <div class="stat-lbl">Years in Web3</div>
             </div>
             <div>
-                <div class="stat-num">15+</div>
+                <div class="stat-num">19</div>
                 <div class="stat-lbl">Hackathons</div>
             </div>
             <div>
-                <div class="stat-num">8</div>
+                <div class="stat-num">10</div>
                 <div class="stat-lbl">Podiums</div>
             </div>
         </div>
@@ -437,52 +458,107 @@
             </div>
         </a>
 
-        <div class="section-head">Hackathon Highlights</div>
+        <div class="section-head">Hackathons</div>
 
+        <!-- 2026 -->
+        <div class="hack-year">2026</div>
         <div class="hack">
-            <span class="hack-medal">&#129351;</span>
-            <span class="hack-text"><strong>Starknet Winter '25</strong> — JON Mods</span>
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Dojo Game Jam VIII</strong> — <a href="https://github.com/dpinones/tactical-beasts" target="_blank" rel="noopener" class="hack-link">Tactical Beasts</a></span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Starknet Re{define}</strong> — <a href="https://github.com/dpinones/mental-poker" target="_blank" rel="noopener" class="hack-link">Mental Poker</a></span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Stellar Hacks: ZK Gaming</strong> — <a href="https://github.com/dpinones/liars-dice" target="_blank" rel="noopener" class="hack-link">Liar's Dice</a></span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Monad Moltiverse</strong> — <a href="https://github.com/dpinones/buckshot-roulette" target="_blank" rel="noopener" class="hack-link">Fluffy Fate</a></span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">✨</span>
+            <span class="hack-text"><strong>Aztec</strong> — <a href="https://github.com/caravana-studio/aztec-treasure-hunt" target="_blank" rel="noopener" class="hack-link">Treasure Hunt</a></span>
+        </div>
+
+        <!-- 2025 -->
+        <div class="hack-year">2025</div>
+        <div class="hack">
+            <span class="hack-medal">🥇</span>
+            <span class="hack-text"><strong>Starknet Winter '25</strong> — <a href="https://github.com/caravana-studio/jokers-of-neon-mods" target="_blank" rel="noopener" class="hack-link">JON Mods</a></span>
             <span class="hack-badge g">1st</span>
         </div>
         <div class="hack">
-            <span class="hack-medal">&#129353;</span>
-            <span class="hack-text"><strong>Zypherpunk '25</strong> — Liars Proof</span>
+            <span class="hack-medal">🥇</span>
+            <span class="hack-text"><strong>Dojo Game Jam</strong> — <a href="https://github.com/dpinones/kanoodle-fusion" target="_blank" rel="noopener" class="hack-link">Kanoodle Fusion</a></span>
+            <span class="hack-badge g">1st</span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🥈</span>
+            <span class="hack-text"><strong>Dojo Vibe Jam</strong> — <a href="https://github.com/dpinones/panda-panda" target="_blank" rel="noopener" class="hack-link">Panda Panda</a></span>
+            <span class="hack-badge s">2nd</span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🥉</span>
+            <span class="hack-text"><strong>Zypherpunk</strong> — <a href="https://github.com/dubzn/liars-proof" target="_blank" rel="noopener" class="hack-link">Liars Proof</a></span>
             <span class="hack-badge b">3rd</span>
         </div>
         <div class="hack">
-            <span class="hack-medal">&#129352;</span>
-            <span class="hack-text"><strong>Dojo Vibe Jam '25</strong> — Panda Panda</span>
-            <span class="hack-badge s">2nd</span>
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>NoirHack</strong> — <a href="https://github.com/dpinones/hunting-the-wolf-dojo-noir" target="_blank" rel="noopener" class="hack-link">Hunting the Wolf</a></span>
         </div>
+
+        <!-- 2024 -->
+        <div class="hack-year">2024</div>
         <div class="hack">
-            <span class="hack-medal">&#129351;</span>
-            <span class="hack-text"><strong>Dojo Game Jam '24</strong> — Kanoodle Fusion</span>
+            <span class="hack-medal">🥇</span>
+            <span class="hack-text"><strong>Dojo Spooky Game Jam</strong> — <a href="https://github.com/caravana-studio/jokers-ls-mod-contracts" target="_blank" rel="noopener" class="hack-link">JON x Loot Survivor Mod</a></span>
             <span class="hack-badge g">1st</span>
         </div>
         <div class="hack">
-            <span class="hack-medal">&#129352;</span>
-            <span class="hack-text"><strong>Dojo Game Jam #3 '24</strong> — Starkane</span>
+            <span class="hack-medal">🥈</span>
+            <span class="hack-text"><strong>Dojo Game Jam #3</strong> — <a href="https://github.com/amegakure-studio/starkane" target="_blank" rel="noopener" class="hack-link">Starkane</a></span>
             <span class="hack-badge s">2nd</span>
         </div>
         <div class="hack">
-            <span class="hack-medal">&#129353;</span>
-            <span class="hack-text"><strong>Starknet Winter '24</strong> — Verdania</span>
+            <span class="hack-medal">🥈</span>
+            <span class="hack-text"><strong>ETH 5 de Mayo</strong> 📍 México — <a href="https://github.com/dbejarano820/eth-cdm-hackathon" target="_blank" rel="noopener" class="hack-link">Paymeez</a></span>
+            <span class="hack-badge s">2nd</span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🥉</span>
+            <span class="hack-text"><strong>Starknet Winter '24</strong> — <a href="https://github.com/amegakure-studio/verdania-cairo" target="_blank" rel="noopener" class="hack-link">Verdania</a></span>
             <span class="hack-badge b">3rd</span>
         </div>
+
+        <!-- 2023 -->
+        <div class="hack-year">2023</div>
         <div class="hack">
-            <span class="hack-medal">&#129351;</span>
-            <span class="hack-text"><strong>Dojo Spooky Jam '23</strong> — Loot Survivor Mod</span>
+            <span class="hack-medal">🏅</span>
+            <span class="hack-text"><strong>Starknet Hacker House</strong> 📍 Istanbul — <a href="https://github.com/Koomuna-Labs" target="_blank" rel="noopener" class="hack-link">VAUTT</a></span>
+            <span class="hack-badge f">Finalist</span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Dojo Game Jam #1</strong> — <a href="https://github.com/dpinones/wordle-dojo" target="_blank" rel="noopener" class="hack-link">Wordle</a></span>
+        </div>
+        <div class="hack">
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Pragma Hackathon #1</strong> — <a href="https://github.com/MechaStark-RPG/mecha-stark-contract" target="_blank" rel="noopener" class="hack-link">MechaStark</a></span>
+        </div>
+
+        <!-- 2022 -->
+        <div class="hack-year">2022</div>
+        <div class="hack">
+            <span class="hack-medal">🥇</span>
+            <span class="hack-text"><strong>Gaming MatchBoxDao #2</strong> — <a href="https://github.com/dpinones/pathfinders-ar" target="_blank" rel="noopener" class="hack-link">PathfindersAR</a></span>
             <span class="hack-badge g">1st</span>
         </div>
         <div class="hack">
-            <span class="hack-medal">&#129352;</span>
-            <span class="hack-text"><strong>ETH 5 de Mayo '23</strong> — Paymeez</span>
-            <span class="hack-badge s">2nd</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">&#129351;</span>
-            <span class="hack-text"><strong>MatchBoxDao #2 '22</strong> — PathfindersAR</span>
-            <span class="hack-badge g">1st</span>
+            <span class="hack-medal">🏆</span>
+            <span class="hack-text"><strong>Topology Hackathon #1</strong> — <a href="https://github.com/nicon44/starknet-forms" target="_blank" rel="noopener" class="hack-link">StarknetForms</a></span>
         </div>
     </div>
 </div>
