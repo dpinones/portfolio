@@ -7,282 +7,391 @@
     <meta name="description" content="Blockchain Engineer & Cairo Developer building on-chain games and tools in the Starknet ecosystem.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --red: #ee2d3f;
+            --red-soft: #f04858;
             --red-glow: rgba(238, 45, 63, 0.15);
-            --bg: #0c0c0c;
-            --bg-card: #141414;
-            --border: #1e1e1e;
-            --border-hover: #333;
-            --text: #e8e8e8;
-            --text-dim: #999;
-            --text-muted: #555;
+            --red-glow-strong: rgba(238, 45, 63, 0.25);
+            --bg: #09090b;
+            --bg-card: rgba(255, 255, 255, 0.025);
+            --bg-card-hover: rgba(255, 255, 255, 0.045);
+            --border: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --text: #f0f0f0;
+            --text-dim: #a1a1aa;
+            --text-muted: #52525b;
             --font-display: 'Space Mono', monospace;
-            --font-body: 'Open Sans', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+        html, body { height: 100%; overflow: hidden; }
         body {
             font-family: var(--font-body);
             background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
-            display: flex;
-            flex-direction: column;
         }
 
         ::selection { background: var(--red); color: #fff; }
 
-        /* === GRID BACKGROUND === */
-        .bg-grid {
+        /* === AMBIENT GLOW === */
+        .glow-orb {
             position: fixed;
-            inset: 0;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.07;
+            pointer-events: none;
             z-index: 0;
-            background-image:
-                linear-gradient(rgba(238, 45, 63, 0.025) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(238, 45, 63, 0.025) 1px, transparent 1px);
-            background-size: 80px 80px;
-            mask-image: radial-gradient(ellipse at 20% 40%, black 10%, transparent 60%);
-            -webkit-mask-image: radial-gradient(ellipse at 20% 40%, black 10%, transparent 60%);
+        }
+        .glow-orb-1 {
+            top: -10%;
+            left: -5%;
+            background: var(--red);
+        }
+        .glow-orb-2 {
+            bottom: -20%;
+            right: -10%;
+            background: #6366f1;
+            opacity: 0.04;
         }
 
-        /* === MAIN LAYOUT === */
+        /* === PAGE === */
         .page {
             position: relative;
             z-index: 1;
-            flex: 1;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            grid-template-rows: 1fr;
-            max-width: 1400px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 2.5rem 3rem;
-            gap: 3rem;
-            min-height: 0;
-        }
-
-        /* === LEFT PANEL === */
-        .left {
             display: flex;
             flex-direction: column;
+            height: 100vh;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2.5rem 3rem 2rem;
+            gap: 1.5rem;
+        }
+
+        /* === HERO === */
+        .hero {
+            display: flex;
+            align-items: center;
             justify-content: center;
-            gap: 1.8rem;
+            gap: 4rem;
+            flex: 1;
+            width: 100%;
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+            width: 100%;
+            max-width: 900px;
+        }
+        .hero-identity {
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
         }
 
         .intro-label {
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.6rem;
             color: var(--red);
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.7rem;
         }
         .intro-label::before {
             content: '';
-            width: 16px;
+            width: 20px;
             height: 1px;
-            background: var(--red);
+            background: linear-gradient(90deg, var(--red), transparent);
         }
 
         .name {
             font-family: var(--font-display);
-            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-size: clamp(2.4rem, 4vw, 3.4rem);
             font-weight: 700;
-            line-height: 1.05;
-            letter-spacing: -0.04em;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            background: linear-gradient(135deg, #fff 0%, #d4d4d8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .name .dot { color: var(--red); }
+        .name .dot {
+            -webkit-text-fill-color: var(--red);
+        }
 
         .bio {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             color: var(--text-dim);
-            line-height: 1.7;
+            line-height: 1.75;
             font-weight: 300;
-            max-width: 480px;
+            max-width: 540px;
+        }
+        .bio a {
+            color: var(--red-soft);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .bio a:hover { color: #fff; }
+
+        .hero-row {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
         }
 
-        /* === SKILLS ROW === */
         .skills {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
+            gap: 0.3rem;
         }
         .skill {
-            padding: 0.3rem 0.65rem;
+            padding: 0.25rem 0.6rem;
             background: rgba(238, 45, 63, 0.06);
-            border: 1px solid rgba(238, 45, 63, 0.12);
-            border-radius: 3px;
-            font-size: 0.72rem;
+            border: 1px solid rgba(238, 45, 63, 0.1);
+            border-radius: 100px;
+            font-size: 0.62rem;
             color: var(--text-dim);
             font-family: var(--font-display);
+            transition: all 0.2s;
+        }
+        .skill:hover {
+            border-color: rgba(238, 45, 63, 0.3);
+            background: rgba(238, 45, 63, 0.1);
         }
 
-        /* === SOCIAL LINKS === */
         .links {
             display: flex;
-            gap: 0.7rem;
+            gap: 0.4rem;
             flex-wrap: wrap;
         }
         .links a {
             display: inline-flex;
             align-items: center;
-            gap: 0.45rem;
-            padding: 0.5rem 1rem;
+            gap: 0.35rem;
+            padding: 0.4rem 0.75rem;
             border: 1px solid var(--border);
-            border-radius: 4px;
+            border-radius: 100px;
             color: var(--text-dim);
             text-decoration: none;
-            font-size: 0.78rem;
+            font-size: 0.68rem;
             font-weight: 500;
-            transition: all 0.2s;
+            transition: all 0.25s;
+            backdrop-filter: blur(8px);
         }
         .links a:hover {
             border-color: var(--red);
-            color: var(--text);
+            color: #fff;
             background: var(--red-glow);
+            box-shadow: 0 0 20px rgba(238, 45, 63, 0.1);
         }
-        .links a svg { width: 14px; height: 14px; flex-shrink: 0; }
+        .links a svg { width: 12px; height: 12px; flex-shrink: 0; }
         .links .primary {
-            background: var(--red);
-            border-color: var(--red);
+            background: linear-gradient(135deg, var(--red) 0%, #c62333 100%);
+            border-color: transparent;
             color: #fff;
         }
         .links .primary:hover {
-            background: #d6283a;
-            border-color: #d6283a;
+            box-shadow: 0 0 30px rgba(238, 45, 63, 0.3);
+            transform: translateY(-1px);
         }
 
         /* === STATS === */
-        .stats {
-            display: flex;
-            gap: 2rem;
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem 1.5rem;
+            flex-shrink: 0;
+        }
+        .stat {
+            text-align: center;
+            padding: 0.8rem 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            transition: all 0.25s;
+        }
+        .stat:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
         }
         .stat-num {
             font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--red);
             line-height: 1;
         }
         .stat-lbl {
-            font-size: 0.65rem;
+            font-size: 0.52rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em;
             margin-top: 0.2rem;
         }
 
-        /* === RIGHT PANEL === */
-        .right {
+        /* === BOTTOM GRID === */
+        .bottom {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            min-height: 0;
+            max-width: 900px;
+            width: 100%;
+            align-self: center;
+        }
+        .bottom .col {
+            overflow: hidden;
+        }
+
+        .col {
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
-            overflow-y: auto;
-            padding-right: 0.5rem;
-            scrollbar-width: thin;
-            scrollbar-color: var(--border) transparent;
+            gap: 0.4rem;
+            min-height: 0;
         }
-        .right::-webkit-scrollbar { width: 3px; }
-        .right::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-        /* === SECTION HEADERS === */
         .section-head {
             font-family: var(--font-display);
-            font-size: 0.65rem;
+            font-size: 0.55rem;
             text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--red);
-            padding-bottom: 0.4rem;
-            border-bottom: 1px solid var(--border);
-            margin-top: 0.5rem;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        .section-head:first-child { margin-top: 0; }
+        .section-head::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, var(--border), transparent);
+        }
+        .section-head .accent {
+            color: var(--red);
+        }
 
         /* === PROJECT CARDS === */
-        .project {
+        .proj {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 0.8rem 1rem;
+            align-items: center;
+            padding: 0.65rem 0.9rem;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 5px;
+            border-radius: 8px;
             text-decoration: none;
             color: inherit;
-            transition: border-color 0.2s;
+            transition: all 0.25s;
         }
-        .project:hover { border-color: var(--border-hover); }
-        .project-name {
+        .proj:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-card-hover);
+            transform: translateX(3px);
+        }
+        .proj-name {
             font-family: var(--font-display);
-            font-size: 0.82rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            margin-bottom: 0.2rem;
         }
-        .project-desc {
-            font-size: 0.75rem;
+        .proj-sub {
+            font-size: 0.6rem;
             color: var(--text-muted);
-            line-height: 1.5;
+            margin-top: 0.1rem;
         }
-        .project-meta {
+        .proj-right {
             display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 0.3rem;
+            align-items: center;
+            gap: 0.4rem;
             flex-shrink: 0;
         }
         .badge {
             font-family: var(--font-display);
-            font-size: 0.58rem;
+            font-size: 0.48rem;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            padding: 0.2rem 0.5rem;
-            border-radius: 3px;
+            padding: 0.18rem 0.45rem;
+            border-radius: 100px;
             white-space: nowrap;
         }
-        .badge-gold { background: rgba(255, 215, 0, 0.1); color: #ffd700; }
-        .badge-red { background: var(--red-glow); color: var(--red); }
+        .badge-red {
+            background: var(--red-glow);
+            color: var(--red);
+            border: 1px solid rgba(238, 45, 63, 0.15);
+        }
         .stars {
             font-family: var(--font-display);
-            font-size: 0.7rem;
+            font-size: 0.58rem;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 0.25rem;
+            gap: 0.2rem;
         }
-        .stars svg { width: 12px; height: 12px; color: #f0c040; }
+        .stars svg { width: 10px; height: 10px; color: #facc15; }
 
-        /* === HACKATHON ITEMS === */
+        /* === HACKATHON LIST === */
+        .hacks-wrap {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+        }
+        .hacks-scroll {
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 0.3rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.08) transparent;
+        }
+        .hacks-scroll::-webkit-scrollbar { width: 3px; }
+        .hacks-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+        .hacks-fade {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(transparent, var(--bg));
+            pointer-events: none;
+            z-index: 2;
+        }
+
         .hack {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            padding: 0.35rem 0;
+            gap: 0.45rem;
+            padding: 0.2rem 0;
+            transition: all 0.2s;
+        }
+        .hack:hover {
+            padding-left: 0.3rem;
         }
         .hack-medal {
-            width: 22px;
+            width: 16px;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.72rem;
             flex-shrink: 0;
-        }
-        .hack-medal.dim {
-            font-size: 0.5rem;
-            color: var(--text-muted);
         }
         .hack-text {
             flex-grow: 1;
-            font-size: 0.75rem;
+            font-size: 0.64rem;
             color: var(--text-dim);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .hack-text strong {
             color: var(--text);
@@ -290,59 +399,45 @@
         }
         .hack-badge {
             font-family: var(--font-display);
-            font-size: 0.58rem;
+            font-size: 0.46rem;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            padding: 0.15rem 0.45rem;
-            border-radius: 3px;
+            padding: 0.12rem 0.38rem;
+            border-radius: 100px;
             flex-shrink: 0;
         }
-        .g { background: rgba(255, 215, 0, 0.1); color: #ffd700; }
-        .s { background: rgba(192, 192, 192, 0.1); color: #c0c0c0; }
-        .b { background: rgba(205, 127, 50, 0.1); color: #cd7f32; }
-        .f { background: rgba(238, 45, 63, 0.08); color: rgba(238, 45, 63, 0.6); }
+        .g { background: rgba(250, 204, 21, 0.1); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.1); }
+        .s { background: rgba(163, 163, 163, 0.08); color: #a3a3a3; border: 1px solid rgba(163, 163, 163, 0.08); }
+        .b { background: rgba(217, 151, 83, 0.08); color: #d99753; border: 1px solid rgba(217, 151, 83, 0.08); }
+        .f { background: rgba(238, 45, 63, 0.06); color: rgba(238, 45, 63, 0.5); border: 1px solid rgba(238, 45, 63, 0.06); }
 
-        .hack-year {
-            font-family: var(--font-display);
-            font-size: 0.62rem;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-top: 0.6rem;
-            padding-bottom: 0.15rem;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
         .hack-link {
             color: var(--text);
             text-decoration: none;
-            border-bottom: 1px solid var(--border);
-            transition: border-color 0.2s;
+            transition: color 0.2s;
         }
-        .hack-link:hover {
-            border-color: var(--red);
-            color: var(--red);
+        .hack-link:hover { color: var(--red-soft); }
+
+        .hack-year {
+            font-family: var(--font-display);
+            font-size: 0.5rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            padding: 0.35rem 0 0.1rem;
         }
 
         /* === RESPONSIVE === */
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             html, body { overflow: auto; height: auto; }
-            .page {
-                grid-template-columns: 1fr;
-                grid-template-rows: auto auto;
-                padding: 2rem 1.5rem;
-                gap: 2.5rem;
-                min-height: auto;
-            }
-            .left { gap: 1.5rem; }
-            .right {
-                overflow-y: visible;
-                padding-right: 0;
-            }
+            .page { height: auto; padding: 2rem 1.5rem; }
+            .hero { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+            .bottom { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 480px) {
+        @media (max-width: 600px) {
+            .page { padding: 1.5rem 1rem; }
             .name { font-size: 2rem; }
-            .stats { gap: 1.2rem; flex-wrap: wrap; }
+            .hero-stats { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
             .links { flex-direction: column; }
             .links a { justify-content: center; }
         }
@@ -350,215 +445,217 @@
 </head>
 <body>
 
-<div class="bg-grid"></div>
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
 
 <div class="page">
-    <!-- LEFT: Identity -->
-    <div class="left">
-        <p class="intro-label">Blockchain Engineer &middot; Cairo Developer</p>
-
-        <h1 class="name">Damián<br>Piñones<span class="dot">.</span></h1>
-
-        <p class="bio">
-            Co-founder of <a href="https://caravana.studio/" target="_blank" rel="noopener" style="color:var(--red);text-decoration:none;font-weight:500;">Caravana Studio</a>, building <a href="https://jokersofneon.com/" target="_blank" rel="noopener" style="color:var(--red);text-decoration:none;font-weight:600;">Jokers of Neon</a> on Starknet & Dojo Engine.
-            Software engineer with 5+ years in tech and 4+ years in Web3.
-        </p>
-
-        <div class="skills">
-            <span class="skill">Cairo</span>
-            <span class="skill">Rust</span>
-            <span class="skill">Solidity</span>
-            <span class="skill">Noir</span>
-            <span class="skill">ZK Proofs</span>
+    <!-- HERO -->
+    <div class="hero">
+        <div class="hero-content">
+        <div class="hero-identity">
+            <p class="intro-label">Blockchain Engineer &middot; Cairo Developer</p>
+            <h1 class="name">Damián Piñones<span class="dot">.</span></h1>
+            <p class="bio">
+                Software engineer with 5+ years in tech and 4+ years in Web3. Co-founder of <a href="https://caravana.studio/" target="_blank" rel="noopener">Caravana Studio</a>, building <a href="https://jokersofneon.com/" target="_blank" rel="noopener" style="font-weight:600;">Jokers of Neon</a> on <a href="https://www.starknet.io/" target="_blank" rel="noopener">Starknet</a>.
+            </p>
+            <div class="hero-row">
+                <div class="skills">
+                    <span class="skill">Cairo</span>
+                    <span class="skill">Rust</span>
+                    <span class="skill">Solidity</span>
+                    <span class="skill">Noir</span>
+                    <span class="skill">ZK Proofs</span>
+                </div>
+            </div>
+            <div class="links">
+                <a href="https://github.com/dpinones" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    GitHub
+                </a>
+                <a href="https://x.com/dpinoness" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    @dpinoness
+                </a>
+                <a href="mailto:pinonesdamian@gmail.com" class="primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                    pinonesdamian@gmail.com
+                </a>
+            </div>
         </div>
-
-        <div class="stats">
-            <div>
+        <div class="hero-stats">
+            <div class="stat">
                 <div class="stat-num">5+</div>
                 <div class="stat-lbl">Years in Tech</div>
             </div>
-            <div>
+            <div class="stat">
                 <div class="stat-num">4+</div>
                 <div class="stat-lbl">Years in Web3</div>
             </div>
-            <div>
+            <div class="stat">
                 <div class="stat-num">19</div>
                 <div class="stat-lbl">Hackathons</div>
             </div>
-            <div>
+            <div class="stat">
                 <div class="stat-num">10</div>
                 <div class="stat-lbl">Podiums</div>
             </div>
         </div>
-
-        <div class="links">
-            <a href="https://github.com/dpinones" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-                GitHub
-            </a>
-            <a href="https://x.com/dpinoness" target="_blank" rel="noopener">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                @dpinoness
-            </a>
-            <a href="mailto:pinonesdamian@gmail.com" class="primary">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                pinonesdamian@gmail.com
-            </a>
         </div>
     </div>
 
-    <!-- RIGHT: Projects & Achievements -->
-    <div class="right">
-        <div class="section-head">Featured Projects</div>
+    <!-- BOTTOM -->
+    <div class="bottom">
+        <!-- LEFT: Projects -->
+        <div class="col">
+            <div class="section-head"><span class="accent">Featured</span>&nbsp;Projects</div>
+            <a class="proj" href="https://github.com/caravana-studio" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Jokers of Neon</div>
+                    <div class="proj-sub">On-chain card game on Starknet via Dojo Engine</div>
+                </div>
+                <span class="badge badge-red">Main Project</span>
+            </a>
+            <a class="proj" href="https://github.com/dpinones/starklings-app" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Starklings App</div>
+                    <div class="proj-sub">Interactive Cairo & Starknet tutorial</div>
+                </div>
+                <div class="proj-right">
+                    <span class="badge badge-red">Maintainer</span>
+                    <span class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 44</span>
+                </div>
+            </a>
 
-        <a class="project" href="https://github.com/caravana-studio" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Jokers of Neon <span class="badge badge-red" style="margin-left:0.4rem;vertical-align:middle;">Main Project</span></div>
-                <div class="project-desc">On-chain card game. Autonomous world on Starknet via Dojo Engine.</div>
+            <div class="section-head" style="margin-top:0.8rem;"><span class="accent">ZK</span>&nbsp;Projects</div>
+            <a class="proj" href="https://github.com/dpinones/mental-poker" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Mental Poker</div>
+                    <div class="proj-sub">Provably fair card game &middot; Noir & Garaga</div>
+                </div>
+            </a>
+            <a class="proj" href="https://github.com/dpinones/liars-dice" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Liars Dice</div>
+                    <div class="proj-sub">On-chain bluffing &middot; ZK proofs</div>
+                </div>
+            </a>
+            <a class="proj" href="https://github.com/dubzn/liars-proof" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Liars Proof</div>
+                    <div class="proj-sub">ZK deception game &middot; Noir circuits</div>
+                </div>
+            </a>
+            <a class="proj" href="https://github.com/dpinones/hunting-the-wolf-dojo-noir" target="_blank" rel="noopener">
+                <div>
+                    <div class="proj-name">Hunting the Wolf</div>
+                    <div class="proj-sub">Dojo + Noir hidden-information game</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- RIGHT: Hackathons -->
+        <div class="col">
+            <div class="section-head"><span class="accent">Hackathons</span></div>
+            <div class="hacks-wrap">
+                <div class="hacks-scroll">
+                    <div class="hack-year">2026</div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Dojo Game Jam VIII</strong> — <a href="https://github.com/dpinones/tactical-beasts" target="_blank" rel="noopener" class="hack-link">Tactical Beasts</a></span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Starknet Re{define}</strong> — <a href="https://github.com/dpinones/mental-poker" target="_blank" rel="noopener" class="hack-link">Mental Poker</a></span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Stellar Hacks: ZK Gaming</strong> — <a href="https://github.com/dpinones/liars-dice" target="_blank" rel="noopener" class="hack-link">Liar's Dice</a></span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Monad Moltiverse</strong> — <a href="https://github.com/dpinones/buckshot-roulette" target="_blank" rel="noopener" class="hack-link">Fluffy Fate</a></span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">✨</span>
+                        <span class="hack-text"><strong>Aztec</strong> — <a href="https://github.com/caravana-studio/aztec-treasure-hunt" target="_blank" rel="noopener" class="hack-link">Treasure Hunt</a></span>
+                    </div>
+
+                    <div class="hack-year">2025</div>
+                    <div class="hack">
+                        <span class="hack-medal">🥇</span>
+                        <span class="hack-text"><strong>Starknet Winter '25</strong> — <a href="https://github.com/caravana-studio/jokers-of-neon-mods" target="_blank" rel="noopener" class="hack-link">JON Mods</a></span>
+                        <span class="hack-badge g">1st</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥇</span>
+                        <span class="hack-text"><strong>Dojo Game Jam</strong> — <a href="https://github.com/dpinones/kanoodle-fusion" target="_blank" rel="noopener" class="hack-link">Kanoodle Fusion</a></span>
+                        <span class="hack-badge g">1st</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥈</span>
+                        <span class="hack-text"><strong>Dojo Vibe Jam</strong> — <a href="https://github.com/dpinones/panda-panda" target="_blank" rel="noopener" class="hack-link">Panda Panda</a></span>
+                        <span class="hack-badge s">2nd</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥉</span>
+                        <span class="hack-text"><strong>Zypherpunk</strong> — <a href="https://github.com/dubzn/liars-proof" target="_blank" rel="noopener" class="hack-link">Liars Proof</a></span>
+                        <span class="hack-badge b">3rd</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>NoirHack</strong> — <a href="https://github.com/dpinones/hunting-the-wolf-dojo-noir" target="_blank" rel="noopener" class="hack-link">Hunting the Wolf</a></span>
+                    </div>
+
+                    <div class="hack-year">2024</div>
+                    <div class="hack">
+                        <span class="hack-medal">🥇</span>
+                        <span class="hack-text"><strong>Dojo Spooky Game Jam</strong> — <a href="https://github.com/caravana-studio/jokers-ls-mod-contracts" target="_blank" rel="noopener" class="hack-link">JON x LS Mod</a></span>
+                        <span class="hack-badge g">1st</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥈</span>
+                        <span class="hack-text"><strong>Dojo Game Jam #3</strong> — <a href="https://github.com/amegakure-studio/starkane" target="_blank" rel="noopener" class="hack-link">Starkane</a></span>
+                        <span class="hack-badge s">2nd</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥈</span>
+                        <span class="hack-text"><strong>ETH 5 de Mayo</strong> — <a href="https://github.com/dbejarano820/eth-cdm-hackathon" target="_blank" rel="noopener" class="hack-link">Paymeez</a></span>
+                        <span class="hack-badge s">2nd</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🥉</span>
+                        <span class="hack-text"><strong>Starknet Winter '24</strong> — <a href="https://github.com/amegakure-studio/verdania-cairo" target="_blank" rel="noopener" class="hack-link">Verdania</a></span>
+                        <span class="hack-badge b">3rd</span>
+                    </div>
+
+                    <div class="hack-year">2023</div>
+                    <div class="hack">
+                        <span class="hack-medal">🏅</span>
+                        <span class="hack-text"><strong>Starknet HH Istanbul</strong> — <a href="https://github.com/Koomuna-Labs" target="_blank" rel="noopener" class="hack-link">VAUTT</a></span>
+                        <span class="hack-badge f">Finalist</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Dojo Game Jam #1</strong> — <a href="https://github.com/dpinones/wordle-dojo" target="_blank" rel="noopener" class="hack-link">Wordle</a></span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Pragma Hackathon</strong> — <a href="https://github.com/MechaStark-RPG/mecha-stark-contract" target="_blank" rel="noopener" class="hack-link">MechaStark</a></span>
+                    </div>
+
+                    <div class="hack-year">2022</div>
+                    <div class="hack">
+                        <span class="hack-medal">🥇</span>
+                        <span class="hack-text"><strong>MatchBoxDao #2</strong> — <a href="https://github.com/dpinones/pathfinders-ar" target="_blank" rel="noopener" class="hack-link">PathfindersAR</a></span>
+                        <span class="hack-badge g">1st</span>
+                    </div>
+                    <div class="hack">
+                        <span class="hack-medal">🏆</span>
+                        <span class="hack-text"><strong>Topology #1</strong> — <a href="https://github.com/nicon44/starknet-forms" target="_blank" rel="noopener" class="hack-link">StarknetForms</a></span>
+                    </div>
+                </div>
+                <div class="hacks-fade"></div>
             </div>
-        </a>
-
-        <a class="project" href="https://github.com/dpinones/starklings-app" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Starklings App <span class="badge badge-red" style="margin-left:0.4rem;vertical-align:middle;">Maintainer</span></div>
-                <div class="project-desc">Interactive tutorial for learning Cairo & Starknet.</div>
-            </div>
-            <div class="project-meta">
-                <span class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> 44</span>
-            </div>
-        </a>
-
-        <div class="section-head">ZK Projects</div>
-
-        <a class="project" href="https://github.com/dpinones/mental-poker" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Mental Poker</div>
-                <div class="project-desc">Provably fair card game with Noir & Garaga.</div>
-            </div>
-        </a>
-
-        <a class="project" href="https://github.com/dpinones/liars-dice" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Liars Dice</div>
-                <div class="project-desc">On-chain bluffing game with ZK proofs.</div>
-            </div>
-        </a>
-
-        <a class="project" href="https://github.com/dubzn/liars-proof" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Liars Proof</div>
-                <div class="project-desc">ZK-based deception game using Noir circuits.</div>
-            </div>
-        </a>
-
-        <a class="project" href="https://github.com/dpinones/hunting-the-wolf-dojo-noir" target="_blank" rel="noopener">
-            <div>
-                <div class="project-name">Hunting the Wolf</div>
-                <div class="project-desc">Dojo + Noir hidden-information game.</div>
-            </div>
-        </a>
-
-        <div class="section-head">Hackathons</div>
-
-        <!-- 2026 -->
-        <div class="hack-year">2026</div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Dojo Game Jam VIII</strong> — <a href="https://github.com/dpinones/tactical-beasts" target="_blank" rel="noopener" class="hack-link">Tactical Beasts</a></span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Starknet Re{define}</strong> — <a href="https://github.com/dpinones/mental-poker" target="_blank" rel="noopener" class="hack-link">Mental Poker</a></span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Stellar Hacks: ZK Gaming</strong> — <a href="https://github.com/dpinones/liars-dice" target="_blank" rel="noopener" class="hack-link">Liar's Dice</a></span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Monad Moltiverse</strong> — <a href="https://github.com/dpinones/buckshot-roulette" target="_blank" rel="noopener" class="hack-link">Fluffy Fate</a></span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">✨</span>
-            <span class="hack-text"><strong>Aztec</strong> — <a href="https://github.com/caravana-studio/aztec-treasure-hunt" target="_blank" rel="noopener" class="hack-link">Treasure Hunt</a></span>
-        </div>
-
-        <!-- 2025 -->
-        <div class="hack-year">2025</div>
-        <div class="hack">
-            <span class="hack-medal">🥇</span>
-            <span class="hack-text"><strong>Starknet Winter '25</strong> — <a href="https://github.com/caravana-studio/jokers-of-neon-mods" target="_blank" rel="noopener" class="hack-link">JON Mods</a></span>
-            <span class="hack-badge g">1st</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥇</span>
-            <span class="hack-text"><strong>Dojo Game Jam</strong> — <a href="https://github.com/dpinones/kanoodle-fusion" target="_blank" rel="noopener" class="hack-link">Kanoodle Fusion</a></span>
-            <span class="hack-badge g">1st</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥈</span>
-            <span class="hack-text"><strong>Dojo Vibe Jam</strong> — <a href="https://github.com/dpinones/panda-panda" target="_blank" rel="noopener" class="hack-link">Panda Panda</a></span>
-            <span class="hack-badge s">2nd</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥉</span>
-            <span class="hack-text"><strong>Zypherpunk</strong> — <a href="https://github.com/dubzn/liars-proof" target="_blank" rel="noopener" class="hack-link">Liars Proof</a></span>
-            <span class="hack-badge b">3rd</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>NoirHack</strong> — <a href="https://github.com/dpinones/hunting-the-wolf-dojo-noir" target="_blank" rel="noopener" class="hack-link">Hunting the Wolf</a></span>
-        </div>
-
-        <!-- 2024 -->
-        <div class="hack-year">2024</div>
-        <div class="hack">
-            <span class="hack-medal">🥇</span>
-            <span class="hack-text"><strong>Dojo Spooky Game Jam</strong> — <a href="https://github.com/caravana-studio/jokers-ls-mod-contracts" target="_blank" rel="noopener" class="hack-link">JON x Loot Survivor Mod</a></span>
-            <span class="hack-badge g">1st</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥈</span>
-            <span class="hack-text"><strong>Dojo Game Jam #3</strong> — <a href="https://github.com/amegakure-studio/starkane" target="_blank" rel="noopener" class="hack-link">Starkane</a></span>
-            <span class="hack-badge s">2nd</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥈</span>
-            <span class="hack-text"><strong>ETH 5 de Mayo</strong> 📍 México — <a href="https://github.com/dbejarano820/eth-cdm-hackathon" target="_blank" rel="noopener" class="hack-link">Paymeez</a></span>
-            <span class="hack-badge s">2nd</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🥉</span>
-            <span class="hack-text"><strong>Starknet Winter '24</strong> — <a href="https://github.com/amegakure-studio/verdania-cairo" target="_blank" rel="noopener" class="hack-link">Verdania</a></span>
-            <span class="hack-badge b">3rd</span>
-        </div>
-
-        <!-- 2023 -->
-        <div class="hack-year">2023</div>
-        <div class="hack">
-            <span class="hack-medal">🏅</span>
-            <span class="hack-text"><strong>Starknet Hacker House</strong> 📍 Istanbul — <a href="https://github.com/Koomuna-Labs" target="_blank" rel="noopener" class="hack-link">VAUTT</a></span>
-            <span class="hack-badge f">Finalist</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Dojo Game Jam #1</strong> — <a href="https://github.com/dpinones/wordle-dojo" target="_blank" rel="noopener" class="hack-link">Wordle</a></span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Pragma Hackathon #1</strong> — <a href="https://github.com/MechaStark-RPG/mecha-stark-contract" target="_blank" rel="noopener" class="hack-link">MechaStark</a></span>
-        </div>
-
-        <!-- 2022 -->
-        <div class="hack-year">2022</div>
-        <div class="hack">
-            <span class="hack-medal">🥇</span>
-            <span class="hack-text"><strong>Gaming MatchBoxDao #2</strong> — <a href="https://github.com/dpinones/pathfinders-ar" target="_blank" rel="noopener" class="hack-link">PathfindersAR</a></span>
-            <span class="hack-badge g">1st</span>
-        </div>
-        <div class="hack">
-            <span class="hack-medal">🏆</span>
-            <span class="hack-text"><strong>Topology Hackathon #1</strong> — <a href="https://github.com/nicon44/starknet-forms" target="_blank" rel="noopener" class="hack-link">StarknetForms</a></span>
         </div>
     </div>
 </div>
