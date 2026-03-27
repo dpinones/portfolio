@@ -80,7 +80,7 @@
             align-items: center;
             justify-content: center;
             gap: 4rem;
-            flex: 0.40;
+            flex: 0.35;
             width: 100%;
         }
         .hero-content {
@@ -243,7 +243,7 @@
 
         /* === BOTTOM GRID === */
         .bottom {
-            flex: 0.60;
+            flex: 0.65;
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
@@ -252,7 +252,10 @@
             width: 100%;
             align-self: center;
         }
-        .bottom .col {
+        .bottom .col:first-child {
+            overflow: visible;
+        }
+        .bottom .col:last-child {
             overflow: hidden;
         }
 
@@ -509,7 +512,7 @@
     <!-- BOTTOM -->
     <div class="bottom">
         <!-- LEFT: Experience & Education -->
-        <div class="col" style="overflow: visible;">
+        <div class="col">
             <div class="section-head"><span class="accent">Experiencia</span></div>
             <a class="proj" href="https://caravana.studio/" target="_blank" rel="noopener">
                 <div>
@@ -552,20 +555,21 @@
                 <span class="exp-techs">Angular · Java · Spring Boot</span>
             </div>
 
-            <div class="section-head" style="margin-top:0.8rem;"><span class="accent">Educación</span></div>
-            <div class="proj">
-                <div>
-                    <div class="proj-name">Universidad Nacional de General Sarmiento</div>
-                    <div class="proj-sub">Tec. Superior en Informática &middot; 2015 — 2018</div>
-                </div>
-            </div>
         </div>
 
-        <!-- RIGHT: Projects & Hackathons -->
+        <!-- RIGHT: Education, Projects & Hackathons -->
         <div class="col">
             <div class="hacks-wrap">
                 <div class="hacks-scroll">
-                    <div class="section-head"><span class="accent">Proyectos</span>&nbsp;Destacados</div>
+                    <div class="section-head"><span class="accent">Datos Académicos</span></div>
+                    <div class="proj">
+                        <div>
+                            <div class="proj-name">Universidad Nacional de General Sarmiento</div>
+                            <div class="proj-sub">Tec. Superior en Informática &middot; 2015 — 2018</div>
+                        </div>
+                    </div>
+
+                    <div class="section-head" style="margin-top:0.8rem;"><span class="accent">Proyectos</span></div>
                     <a class="proj" href="https://github.com/caravana-studio" target="_blank" rel="noopener">
                         <div>
                             <div class="proj-name">Jokers of Neon</div>
